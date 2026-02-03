@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Alexander Webb — Video Portfolio</title>
+
+  <style>
+    /* --- Reset / Base --- */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: #ffffff;
+      color: #111111;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* --- Layout --- */
+    .container {
+      max-width: 640px;
+      padding: 48px 32px;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 0.95rem;
+      color: #555555;
+      margin-bottom: 36px;
+    }
+
+    /* --- Links --- */
+    .links {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    a {
+      font-size: 1.1rem;
+      text-decoration: none;
+      color: #111111;
+      border-bottom: 1px solid rgba(0,0,0,0.25);
+      padding-bottom: 2px;
+      cursor: pointer;
+      transition: opacity 0.2s ease, border-color 0.2s ease;
+    }
+
+    a:hover {
+      opacity: 0.65;
+      border-color: rgba(0,0,0,0.5);
+    }
+
+    /* --- Modal --- */
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal.active {
+      display: flex;
+    }
+
+    .modal-content {
+      width: 90%;
+      max-width: 900px;
+      background: #000000;
+      position: relative;
+      aspect-ratio: 16 / 9;
+    }
+
+    .modal-content iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .close {
+      position: absolute;
+      top: -36px;
+      right: 0;
+      color: #ffffff;
+      font-size: 0.9rem;
+      cursor: pointer;
+      opacity: 0.8;
+    }
+
+    .close:hover {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1>Alexander Webb</h1>
+    <div class="subtitle">Video Editor • Animator</div>
+
+    <nav class="links">
+      <!-- Replace data-video URLs with your actual video embed links -->
+      <a data-video="https://www.youtube.com/embed/UwqZGfT9vVA&t=4s"> Branded Content</a>
+      <a data-video="https://www.youtube.com/embed/RQrnXE8JyVI&t=9s"> Instructional Content</a>
+      <a data-video="https://www.youtube.com/embed/EMQfaFJ7OG0">Marketing Content</a>
+    </nav>
+
+    <!-- Optional footer text -->
+    <!-- <div class="note">Portfolio available upon request</div> -->
+  </main>
+
+  <!-- Modal Player -->
+  <div class="modal" id="videoModal">
+    <div class="modal-content">
+      <div class="close" id="closeModal">Close</div>
+      <iframe id="videoFrame" src="" allow="autoplay; fullscreen"></iframe>
+    </div>
+  </div>
+
+  <script>
+    const modal = document.getElementById('videoModal');
+    const frame = document.getElementById('videoFrame');
+    const close = document.getElementById('closeModal');
+
+    document.querySelectorAll('[data-video]').forEach(link => {
+      link.addEventListener('click', () => {
+        frame.src = link.getAttribute('data-video');
+        modal.classList.add('active');
+      });
+    });
+
+    close.addEventListener('click', () => {
+      frame.src = '';
+      modal.classList.remove('active');
+    });
+
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        frame.src = '';
+        modal.classList.remove('active');
+      }
+    });
+  </script>
+</body>
+</html>
